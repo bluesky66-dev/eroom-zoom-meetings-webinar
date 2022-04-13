@@ -9,7 +9,7 @@ class StmZoomAdminMenus {
 		add_action(
 			'admin_menu',
 			function() {
-				add_menu_page( 'eRoom', 'eRoom', 'manage_options', 'stm_zoom', 'admin_pages', 'dashicons-video-alt2', 40 );
+				add_menu_page( 'Classroom', 'Classroom', 'manage_options', 'stm_zoom', 'admin_pages', 'dashicons-book', 40 );
 				self::admin_submenu_pages();
 			},
 			100
@@ -54,21 +54,21 @@ class StmZoomAdminMenus {
 	 */
 	public static function admin_submenu_pages() {
 		$pages = array(
-			array(
-				'slug'      => 'stm_zoom_users',
-				'menu_slug' => 'stm_zoom_users',
-				'label'     => esc_html__( 'Users', 'eroom-zoom-meetings-webinar' ),
-			),
-			array(
-				'slug'      => 'stm_zoom_add_user',
-				'menu_slug' => 'stm_zoom_add_user',
-				'label'     => esc_html__( 'Add user', 'eroom-zoom-meetings-webinar' ),
-			),
-			array(
-				'slug'      => 'stm_zoom_reports',
-				'menu_slug' => 'stm_zoom_reports',
-				'label'     => esc_html__( 'Reports', 'eroom-zoom-meetings-webinar' ),
-			),
+//			array(
+//				'slug'      => 'stm_zoom_users',
+//				'menu_slug' => 'stm_zoom_users',
+//				'label'     => esc_html__( 'Users', 'eroom-zoom-meetings-webinar' ),
+//			),
+//			array(
+//				'slug'      => 'stm_zoom_add_user',
+//				'menu_slug' => 'stm_zoom_add_user',
+//				'label'     => esc_html__( 'Add user', 'eroom-zoom-meetings-webinar' ),
+//			),
+//			array(
+//				'slug'      => 'stm_zoom_reports',
+//				'menu_slug' => 'stm_zoom_reports',
+//				'label'     => esc_html__( 'Reports', 'eroom-zoom-meetings-webinar' ),
+//			),
 			array(
 				'slug'      => 'stm_zoom_assign_host_id',
 				'menu_slug' => 'stm_zoom_assign_host_id',
@@ -77,14 +77,41 @@ class StmZoomAdminMenus {
 		);
 
 		// Add Webinars submenu
-		add_submenu_page(
-			'stm_zoom',
-			esc_html__( 'Webinars', 'eroom-zoom-meetings-webinar' ),
-			esc_html__( 'Webinars', 'eroom-zoom-meetings-webinar' ),
+//		add_submenu_page(
+//			'stm_zoom',
+//			esc_html__( 'Webinars', 'eroom-zoom-meetings-webinar' ),
+//			esc_html__( 'Webinars', 'eroom-zoom-meetings-webinar' ),
+//			'manage_options',
+//			'edit.php?post_type=stm-zoom-webinar',
+//			false
+//		);
+
+        add_submenu_page(
+            'stm_zoom',
+			esc_html__( 'Categories', 'eroom-zoom-meetings-webinar' ),
+			esc_html__( 'Categories', 'eroom-zoom-meetings-webinar' ),
 			'manage_options',
-			'edit.php?post_type=stm-zoom-webinar',
+			'edit-tags.php?taxonomy=stm_category',
 			false
 		);
+
+        add_submenu_page(
+            'stm_zoom',
+            esc_html__( 'Tags', 'eroom-zoom-meetings-webinar' ),
+            esc_html__( 'Tags', 'eroom-zoom-meetings-webinar' ),
+            'manage_options',
+            'edit-tags.php?taxonomy=stm_tag',
+            false
+        );
+
+        add_submenu_page(
+            'stm_zoom',
+            esc_html__( 'Recommendations', 'eroom-zoom-meetings-webinar' ),
+            esc_html__( 'Recommendations', 'eroom-zoom-meetings-webinar' ),
+            'manage_options',
+            'edit-tags.php?taxonomy=stm_popular',
+            false
+        );
 
 		foreach ( $pages as $page ) {
 			/* Create Submenu */

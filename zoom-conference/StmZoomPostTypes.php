@@ -7,7 +7,7 @@ class StmZoomPostTypes {
 	 */
 	public function __construct() {
 		add_action( 'init', array( $this, 'stm_zoom_register_post_type' ), 10 );
-
+        add_action( 'init',  array( $this, 'stm_zoom_register_taxonomies' ), 11 );
 		if ( is_admin() ) {
 			self::stm_zoom_metaboxes();
 		}
@@ -85,17 +85,17 @@ class StmZoomPostTypes {
 	public function stm_zoom_register_post_type() {
 		 $meeting_args = array(
 			 'labels'              => array(
-				 'name'               => esc_html__( 'Meetings', 'eroom-zoom-meetings-webinar' ),
-				 'singular_name'      => esc_html__( 'Meeting', 'eroom-zoom-meetings-webinar' ),
+				 'name'               => esc_html__( 'Lectures', 'eroom-zoom-meetings-webinar' ),
+				 'singular_name'      => esc_html__( 'Lecture', 'eroom-zoom-meetings-webinar' ),
 				 'add_new'            => esc_html__( 'Add new', 'eroom-zoom-meetings-webinar' ),
 				 'add_new_item'       => esc_html__( 'Add new', 'eroom-zoom-meetings-webinar' ),
-				 'edit_item'          => esc_html__( 'Edit meeting', 'eroom-zoom-meetings-webinar' ),
-				 'new_item'           => esc_html__( 'New meeting', 'eroom-zoom-meetings-webinar' ),
-				 'view_item'          => esc_html__( 'View meeting', 'eroom-zoom-meetings-webinar' ),
-				 'search_items'       => esc_html__( 'Search meeting', 'eroom-zoom-meetings-webinar' ),
+				 'edit_item'          => esc_html__( 'Edit lecture', 'eroom-zoom-meetings-webinar' ),
+				 'new_item'           => esc_html__( 'New lecture', 'eroom-zoom-meetings-webinar' ),
+				 'view_item'          => esc_html__( 'View lecture', 'eroom-zoom-meetings-webinar' ),
+				 'search_items'       => esc_html__( 'Search lecture', 'eroom-zoom-meetings-webinar' ),
 				 'not_found'          => esc_html__( 'Not found', 'eroom-zoom-meetings-webinar' ),
 				 'not_found_in_trash' => esc_html__( 'Not found', 'eroom-zoom-meetings-webinar' ),
-				 'menu_name'          => esc_html__( 'Meetings', 'eroom-zoom-meetings-webinar' ),
+				 'menu_name'          => esc_html__( 'Lectures', 'eroom-zoom-meetings-webinar' ),
 			 ),
 			 'public'              => true,
 			 'publicly_queryable'  => true,
@@ -103,6 +103,7 @@ class StmZoomPostTypes {
 			 'show_ui'             => true,
 			 'show_in_menu'        => 'stm_zoom',
 			 'capability_type'     => 'post',
+             'taxonomies'         => array( 'stm_category', 'stm_tag' ),
 			 'supports'            => array( 'title', 'author', 'thumbnail' ),
 		 );
 
@@ -133,6 +134,113 @@ class StmZoomPostTypes {
 
 		 register_post_type( 'stm-zoom-webinar', $webinar_args ); /* Calling Register Post Type */
 	}
+
+    public function stm_zoom_register_taxonomies() {
+        // Add new taxonomy, make it hierarchical (like categories)
+        $labels = array(
+            'name'              => _x( 'Categories', 'taxonomy general name', 'eroom-zoom-meetings-webinar' ),
+            'singular_name'     => _x( 'Category', 'taxonomy singular name', 'eroom-zoom-meetings-webinar' ),
+            'search_items'      => __( 'Search Categories', 'eroom-zoom-meetings-webinar' ),
+            'all_items'         => __( 'All Categories', 'eroom-zoom-meetings-webinar' ),
+            'parent_item'       => __( 'Parent Category', 'eroom-zoom-meetings-webinar' ),
+            'parent_item_colon' => __( 'Parent Category:', 'eroom-zoom-meetings-webinar' ),
+            'edit_item'         => __( 'Edit Category', 'eroom-zoom-meetings-webinar' ),
+            'update_item'       => __( 'Update Category', 'eroom-zoom-meetings-webinar' ),
+            'add_new_item'      => __( 'Add New Category', 'eroom-zoom-meetings-webinar' ),
+            'new_item_name'     => __( 'New Category Name', 'eroom-zoom-meetings-webinar' ),
+            'menu_name'         => __( 'Category', 'eroom-zoom-meetings-webinar' ),
+        );
+
+        $args = array(
+            'public'              => true,
+            'publicly_queryable'  => true,
+            'hierarchical'      => true,
+            'labels'            => $labels,
+            'show_ui'           => true,
+            'show_in_menu'        => 'stm_zoom',
+            'show_admin_column' => true,
+            'query_var'         => true,
+            'rewrite'           => array( 'slug' => 'stm_category' ),
+        );
+
+        register_taxonomy( 'stm_category', array( 'stm-zoom' ), $args );
+
+        unset( $args );
+        unset( $labels );
+
+        // Add new taxonomy, NOT hierarchical (like tags)
+        $labels = array(
+            'name'                       => _x( 'Recommendations', 'taxonomy general name', 'eroom-zoom-meetings-webinar' ),
+            'singular_name'              => _x( 'Recommendation', 'taxonomy singular name', 'eroom-zoom-meetings-webinar' ),
+            'search_items'               => __( 'Search Recommendations', 'eroom-zoom-meetings-webinar' ),
+            'popular_items'              => __( 'Popular Recommendations', 'eroom-zoom-meetings-webinar' ),
+            'all_items'                  => __( 'All Recommendations', 'eroom-zoom-meetings-webinar' ),
+            'parent_item'                => null,
+            'parent_item_colon'          => null,
+            'edit_item'                  => __( 'Edit Popular', 'eroom-zoom-meetings-webinar' ),
+            'update_item'                => __( 'Update Recommendation', 'eroom-zoom-meetings-webinar' ),
+            'add_new_item'               => __( 'Add New Recommendation', 'eroom-zoom-meetings-webinar' ),
+            'new_item_name'              => __( 'New Recommendation Name', 'eroom-zoom-meetings-webinar' ),
+            'separate_items_with_commas' => __( 'Separate recommendations with commas', 'eroom-zoom-meetings-webinar' ),
+            'add_or_remove_items'        => __( 'Add or remove recommendations', 'eroom-zoom-meetings-webinar' ),
+            'choose_from_most_used'      => __( 'Choose from the most used recommendations', 'eroom-zoom-meetings-webinar' ),
+            'not_found'                  => __( 'No recommendations found.', 'eroom-zoom-meetings-webinar' ),
+            'menu_name'                  => __( 'Recommendations', 'eroom-zoom-meetings-webinar' ),
+        );
+
+        $args = array(
+            'public'              => true,
+            'publicly_queryable'  => true,
+            'hierarchical'          => true,
+            'labels'                => $labels,
+            'show_ui'               => true,
+            'show_in_menu'        => 'stm_zoom',
+            'show_admin_column'     => true,
+            'update_count_callback' => '_update_post_term_count',
+            'query_var'             => true,
+            'rewrite'               => array( 'slug' => 'stm_popular' ),
+        );
+
+        register_taxonomy( 'stm_popular', 'stm-zoom', $args );
+
+        unset( $args );
+        unset( $labels );
+
+        // Add new taxonomy, NOT hierarchical (like tags)
+        $labels = array(
+            'name'                       => _x( 'Tags', 'taxonomy general name', 'eroom-zoom-meetings-webinar' ),
+            'singular_name'              => _x( 'Tag', 'taxonomy singular name', 'eroom-zoom-meetings-webinar' ),
+            'search_items'               => __( 'Search Tags', 'eroom-zoom-meetings-webinar' ),
+            'popular_items'              => __( 'Popular Tags', 'eroom-zoom-meetings-webinar' ),
+            'all_items'                  => __( 'All Tags', 'eroom-zoom-meetings-webinar' ),
+            'parent_item'                => null,
+            'parent_item_colon'          => null,
+            'edit_item'                  => __( 'Edit Tag', 'eroom-zoom-meetings-webinar' ),
+            'update_item'                => __( 'Update Tag', 'eroom-zoom-meetings-webinar' ),
+            'add_new_item'               => __( 'Add New Tag', 'eroom-zoom-meetings-webinar' ),
+            'new_item_name'              => __( 'New Tag Name', 'eroom-zoom-meetings-webinar' ),
+            'separate_items_with_commas' => __( 'Separate tags with commas', 'eroom-zoom-meetings-webinar' ),
+            'add_or_remove_items'        => __( 'Add or remove tags', 'eroom-zoom-meetings-webinar' ),
+            'choose_from_most_used'      => __( 'Choose from the most used tags', 'eroom-zoom-meetings-webinar' ),
+            'not_found'                  => __( 'No tags found.', 'eroom-zoom-meetings-webinar' ),
+            'menu_name'                  => __( 'Tags', 'eroom-zoom-meetings-webinar' ),
+        );
+
+        $args = array(
+            'public'              => true,
+            'publicly_queryable'  => true,
+            'hierarchical'          => false,
+            'labels'                => $labels,
+            'show_ui'               => true,
+            'show_in_menu'        => 'stm_zoom',
+            'show_admin_column'     => true,
+            'update_count_callback' => '_update_post_term_count',
+            'query_var'             => true,
+            'rewrite'               => array( 'slug' => 'stm_tag' ),
+        );
+
+        register_taxonomy( 'stm_tag', 'stm-zoom', $args );
+    }
 
 	/**
 	 * STM Zoom Post Type Settings - Post Meta Box & Fields
@@ -169,15 +277,19 @@ class StmZoomPostTypes {
 				$fields['stm_zoom_meeting'] = array(
 
 					'tab_1' => array(
-						'name'   => esc_html__( 'Meeting settings', 'eroom-zoom-meetings-webinar' ),
+						'name'   => esc_html__( 'Lecture settings', 'eroom-zoom-meetings-webinar' ),
 						'fields' => array(
+                            'stm_featured'          => array(
+                                'type'  => 'checkbox',
+                                'label' => esc_html__( 'Featured Lecture', 'eroom-zoom-meetings-webinar' ),
+                            ),
 							'stm_agenda'                   => array(
 								'type'  => 'textarea',
-								'label' => esc_html__( 'Meeting agenda', 'eroom-zoom-meetings-webinar' ),
+								'label' => esc_html__( 'Lecture agenda', 'eroom-zoom-meetings-webinar' ),
 							),
 							'stm_host'                     => array(
 								'type'    => 'select',
-								'label'   => esc_html__( 'Meeting host', 'eroom-zoom-meetings-webinar' ),
+								'label'   => esc_html__( 'Lecture host', 'eroom-zoom-meetings-webinar' ),
 								'options' => StmZoom::get_users_options(),
 							),
 							'stm_select_approved_denied'   => array(
@@ -211,31 +323,31 @@ class StmZoomPostTypes {
 							),
 							'stm_date'                     => array(
 								'type'  => 'date',
-								'label' => esc_html__( 'Meeting date', 'eroom-zoom-meetings-webinar' ),
+								'label' => esc_html__( 'Lecture date', 'eroom-zoom-meetings-webinar' ),
 							),
 							'stm_time'                     => array(
 								'type'  => 'time',
-								'label' => esc_html__( 'Meeting time', 'eroom-zoom-meetings-webinar' ),
+								'label' => esc_html__( 'Lecture time', 'eroom-zoom-meetings-webinar' ),
 							),
 							'stm_timezone'                 => array(
 								'type'    => 'select',
-								'label'   => esc_html__( 'Meeting timezone', 'eroom-zoom-meetings-webinar' ),
+								'label'   => esc_html__( 'Lecture timezone', 'eroom-zoom-meetings-webinar' ),
 								'options' => stm_zoom_get_timezone_options(),
 								'value'   => get_current_timezone(),
 							),
 							'stm_duration'                 => array(
 								'type'  => 'number',
-								'label' => esc_html__( 'Meeting duration (in min)', 'eroom-zoom-meetings-webinar' ),
+								'label' => esc_html__( 'Lecture duration (in min)', 'eroom-zoom-meetings-webinar' ),
 							),
 							'stm_password'                 => array(
 								'type'        => 'text',
-								'label'       => esc_html__( 'Meeting password', 'eroom-zoom-meetings-webinar' ),
-								'description' => esc_html__( 'Only users who have the invite link or passcode can join the meeting', 'eroom-zoom-meetings-webinar' ),
+								'label'       => esc_html__( 'Lecture password', 'eroom-zoom-meetings-webinar' ),
+								'description' => esc_html__( 'Only users who have the invite link or passcode can join the lecture', 'eroom-zoom-meetings-webinar' ),
 							),
 							'stm_waiting_room'             => array(
 								'type'        => 'checkbox',
 								'label'       => esc_html__( 'Waiting room', 'eroom-zoom-meetings-webinar' ),
-								'description' => esc_html__( 'Only users admitted by the host can join the meeting', 'eroom-zoom-meetings-webinar' ),
+								'description' => esc_html__( 'Only users admitted by the host can join the lecture', 'eroom-zoom-meetings-webinar' ),
 							),
 							'stm_join_before_host'         => array(
 								'type'       => 'checkbox',
@@ -260,7 +372,7 @@ class StmZoomPostTypes {
 							'stm_enforce_login'            => array(
 								'type'        => 'checkbox',
 								'label'       => esc_html__( 'Require authentication to join: Sign in to Zoom', 'eroom-zoom-meetings-webinar' ),
-								'description' => esc_html__( 'Only authenticated users can join meetings. This setting works only for Zoom accounts with Pro license or higher', 'eroom-zoom-meetings-webinar' ),
+								'description' => esc_html__( 'Only authenticated users can join lectures. This setting works only for Zoom accounts with Pro license or higher', 'eroom-zoom-meetings-webinar' ),
 							),
 							'stm_alternative_hosts'        => array(
 								'type'      => 'autocomplete',
@@ -312,7 +424,7 @@ class StmZoomPostTypes {
 							'stm_waiting_room'             => array(
 								'type'        => 'checkbox',
 								'label'       => esc_html__( 'Waiting room', 'eroom-zoom-meetings-webinar' ),
-								'description' => esc_html__( 'Only users admitted by the host can join the meeting', 'eroom-zoom-meetings-webinar' ),
+								'description' => esc_html__( 'Only users admitted by the host can join the lecture', 'eroom-zoom-meetings-webinar' ),
 							),
 							'stm_join_before_host'         => array(
 								'type'       => 'checkbox',
@@ -347,6 +459,28 @@ class StmZoomPostTypes {
 				return $fields;
 			}
 		);
+
+        add_filter(
+            'manage_stm-zoom_posts_columns',
+            function ($columns) {
+                $columns['stm_featured'] = __( 'Featured', 'eroom-zoom-meetings-webinar' );
+
+                return $columns;
+            }
+        );
+
+        add_action(
+            'manage_stm-zoom_posts_custom_column',
+            function ( $column, $post_id ) {
+                switch ( $column ) {
+                    case 'stm_featured' :
+                        echo get_post_meta( $post_id , 'stm_featured' , true );
+                        break;
+                }
+            },
+            10,
+            2
+        );
 	}
 
 	/**
@@ -355,7 +489,7 @@ class StmZoomPostTypes {
 	public function stm_zoom_add_custom_box() {
 		 /* Meeting Meta Box for Shortcode */
 		$meeting_screens = array( 'stm-zoom' );
-		add_meta_box( 'stm_zoom_info', 'Zoom meeting info', 'StmZoomPostTypes::meeting_info_template', $meeting_screens, 'side', 'high' );
+		add_meta_box( 'stm_zoom_info', 'Zoom lecture info', 'StmZoomPostTypes::meeting_info_template', $meeting_screens, 'side', 'high' );
 
 		/* Webinar Meta Box for Shortcode */
 		$webinar_screens = array( 'stm-zoom-webinar' );

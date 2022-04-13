@@ -1,9 +1,9 @@
 (function ($) {
     'use strict';
     $(document).ready(function () {
-        var zoom_type           = (typeof typenow != 'undefined' && typenow == 'stm-zoom-webinar') ? 'Webinars' : 'Meetings' ;
+        var zoom_type           = (typeof typenow != 'undefined' && typenow == 'stm-zoom-webinar') ? 'Webinars' : 'Lectures' ;
 
-        $('.wrap > a').after('<a id="sync_meetings" class="page-title-action">Sync with Zoom ' + zoom_type + '</a>');
+        // $('.wrap > a').after('<a id="sync_meetings" class="page-title-action">Sync with Zoom ' + zoom_type + '</a>');
 
         $('#sync_meetings').on('click', function(e) {
             e.preventDefault();
