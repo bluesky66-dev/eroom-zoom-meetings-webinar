@@ -100,10 +100,13 @@ class StmZoomPostTypes {
 			 'public'              => true,
 			 'publicly_queryable'  => true,
 			 'exclude_from_search' => true,
-			 'show_ui'             => true,
+             'show_ui'            => true,
+             'query_var'          => true,
+             'rewrite'            => array( 'slug' => 'stm-zoom' ),
+             'has_archive'        => true,
 			 'show_in_menu'        => 'stm_zoom',
 			 'capability_type'     => 'post',
-             'taxonomies'         => array( 'stm_category', 'stm_tag' ),
+             'taxonomies'         => array( 'stm_category', 'stm_popular', 'stm_tag'),
 			 'supports'            => array( 'title', 'author', 'thumbnail' ),
 		 );
 
@@ -163,8 +166,8 @@ class StmZoomPostTypes {
             'rewrite'           => array( 'slug' => 'stm_category' ),
         );
 
-        register_taxonomy( 'stm_category', array( 'stm-zoom' ), $args );
-
+        register_taxonomy( 'stm_category', 'stm-zoom', $args );
+        register_taxonomy_for_object_type('stm_category', 'stm-zoom');
         unset( $args );
         unset( $labels );
 
@@ -196,13 +199,12 @@ class StmZoomPostTypes {
             'show_ui'               => true,
             'show_in_menu'        => 'stm_zoom',
             'show_admin_column'     => true,
-            'update_count_callback' => '_update_post_term_count',
             'query_var'             => true,
             'rewrite'               => array( 'slug' => 'stm_popular' ),
         );
 
         register_taxonomy( 'stm_popular', 'stm-zoom', $args );
-
+        register_taxonomy_for_object_type('stm_popular', 'stm-zoom');
         unset( $args );
         unset( $labels );
 
@@ -240,6 +242,7 @@ class StmZoomPostTypes {
         );
 
         register_taxonomy( 'stm_tag', 'stm-zoom', $args );
+        register_taxonomy_for_object_type('stm_tag', 'stm-zoom');
     }
 
 	/**

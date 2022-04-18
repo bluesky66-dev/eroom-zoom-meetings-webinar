@@ -14,8 +14,8 @@ class StmZoomAdminMenus {
 			},
 			100
 		);
-
-		  add_action( 'admin_menu', array( $this, 'admin_submenu_pages_gopro' ), 10001 );
+        add_action( 'parent_file',  array( $this, 'menu_highlight' ) );
+//		  add_action( 'admin_menu', array( $this, 'admin_submenu_pages_gopro' ), 10001 );
 
 		if ( is_admin() ) {
 			self::admin_settings_page();
@@ -94,22 +94,20 @@ class StmZoomAdminMenus {
 			'edit-tags.php?taxonomy=stm_category',
 			false
 		);
-
-        add_submenu_page(
-            'stm_zoom',
-            esc_html__( 'Tags', 'eroom-zoom-meetings-webinar' ),
-            esc_html__( 'Tags', 'eroom-zoom-meetings-webinar' ),
-            'manage_options',
-            'edit-tags.php?taxonomy=stm_tag',
-            false
-        );
-
         add_submenu_page(
             'stm_zoom',
             esc_html__( 'Recommendations', 'eroom-zoom-meetings-webinar' ),
             esc_html__( 'Recommendations', 'eroom-zoom-meetings-webinar' ),
             'manage_options',
             'edit-tags.php?taxonomy=stm_popular',
+            false
+        );
+        add_submenu_page(
+            'stm_zoom',
+            esc_html__( 'Tags', 'eroom-zoom-meetings-webinar' ),
+            esc_html__( 'Tags', 'eroom-zoom-meetings-webinar' ),
+            'manage_options',
+            'edit-tags.php?taxonomy=stm_tag',
             false
         );
 
@@ -129,6 +127,16 @@ class StmZoomAdminMenus {
 		remove_submenu_page( 'stm_zoom', 'stm_zoom' );
 	}
 
+    public function menu_highlight($parent_file) {
+        global $current_screen;
+
+        $taxonomy = $current_screen->taxonomy;
+        if ( $taxonomy == 'stm_tag' || $taxonomy == 'stm_category' || $taxonomy == 'stm_popular' ) {
+            $parent_file = 'stm_zoom';
+        }
+
+        return $parent_file;
+    }
 	public static function admin_submenu_pages_gopro() {
 		if ( ! defined( 'STM_ZOOM_PRO_PATH' ) ) {
 //			add_submenu_page(
