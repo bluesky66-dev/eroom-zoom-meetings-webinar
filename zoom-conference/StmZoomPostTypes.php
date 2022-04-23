@@ -107,10 +107,39 @@ class StmZoomPostTypes {
 			 'show_in_menu'        => 'stm_zoom',
 			 'capability_type'     => 'post',
              'taxonomies'         => array( 'stm_category', 'stm_popular', 'stm_tag'),
-			 'supports'            => array( 'title', 'author', 'thumbnail' ),
+			 'supports'            => array( 'title', 'editor', 'author', 'thumbnail' ),
 		 );
 
 		 register_post_type( 'stm-zoom', $meeting_args ); /* Calling Register Post Type */
+
+		 $recruit_args = array(
+			'labels'              => array(
+				'name'               => esc_html__( 'Recruits', 'eroom-zoom-meetings-webinar' ),
+				'singular_name'      => esc_html__( 'Recruit', 'eroom-zoom-meetings-webinar' ),
+				'add_new'            => esc_html__( 'Add new', 'eroom-zoom-meetings-webinar' ),
+				'add_new_item'       => esc_html__( 'Add new', 'eroom-zoom-meetings-webinar' ),
+				'edit_item'          => esc_html__( 'Edit recruit', 'eroom-zoom-meetings-webinar' ),
+				'new_item'           => esc_html__( 'New recruit', 'eroom-zoom-meetings-webinar' ),
+				'view_item'          => esc_html__( 'View recruit', 'eroom-zoom-meetings-webinar' ),
+				'search_items'       => esc_html__( 'Search recruit', 'eroom-zoom-meetings-webinar' ),
+				'not_found'          => esc_html__( 'Not found', 'eroom-zoom-meetings-webinar' ),
+				'not_found_in_trash' => esc_html__( 'Not found', 'eroom-zoom-meetings-webinar' ),
+				'menu_name'          => esc_html__( 'Recruits', 'eroom-zoom-meetings-webinar' ),
+			),
+			'public'              => true,
+			'publicly_queryable'  => true,
+			'exclude_from_search' => true,
+			'show_ui'            => true,
+			'query_var'          => true,
+			'rewrite'            => array( 'slug' => 'recruit' ),
+			'has_archive'        => true,
+			'show_in_menu'        => 'stm_zoom',
+			'capability_type'     => 'post',
+			// 'taxonomies'         => array( 'stm_category', 'stm_popular', 'stm_tag'),
+			'supports'            => array( 'title', 'editor', 'author', 'thumbnail' ),
+		);
+
+		register_post_type( 'recruit', $recruit_args ); /* Calling Register Post Type */
 
 		 $webinar_args = array(
 			 'labels'              => array(
@@ -264,6 +293,11 @@ class StmZoomPostTypes {
 				$boxes['stm_zoom_webinar'] = array(
 					'post_type' => array( 'stm-zoom-webinar' ),
 					'label'     => esc_html__( 'Post settings', 'eroom-zoom-meetings-webinar' ),
+				);
+
+				$boxes['stm_zoom_recruit'] = array(
+					'post_type' => array( 'recruit' ),
+					'label'     => esc_html__( 'Post setting', 'eroom-zoom-meetings-webinar' ),
 				);
 
 				return $boxes;
@@ -453,6 +487,32 @@ class StmZoomPostTypes {
 								'type'      => 'autocomplete',
 								'label'     => esc_html__( 'Alternative hosts', 'eroom-zoom-meetings-webinar' ),
 								'post_type' => array(),
+							),
+						),
+					),
+
+				);
+
+				$fields['stm_zoom_recruit'] = array(
+
+					'tab_1' => array(
+						'name'   => esc_html__( 'Webinar settings', 'eroom-zoom-meetings-webinar' ),
+						'fields' => array(
+							'price'                     => array(
+								'type'    => 'text',
+								'label'   => esc_html__( '料金', 'eroom-zoom-meetings-webinar' ),
+							),
+							'participant'                     => array(
+								'type'  => 'text',
+								'label' => esc_html__( '参加者', 'eroom-zoom-meetings-webinar' ),
+							),
+							'number-limit'                     => array(
+								'type'  => 'text',
+								'label' => esc_html__( '人数制限', 'eroom-zoom-meetings-webinar' ),
+							),
+							'lecture_text'                 => array(
+								'type'    => 'text',
+								'label'   => esc_html__( 'テキスト', 'eroom-zoom-meetings-webinar' ),
 							),
 						),
 					),

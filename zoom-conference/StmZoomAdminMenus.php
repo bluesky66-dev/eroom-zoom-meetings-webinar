@@ -77,14 +77,14 @@ class StmZoomAdminMenus {
 		);
 
 		// Add Webinars submenu
-//		add_submenu_page(
-//			'stm_zoom',
-//			esc_html__( 'Webinars', 'eroom-zoom-meetings-webinar' ),
-//			esc_html__( 'Webinars', 'eroom-zoom-meetings-webinar' ),
-//			'manage_options',
-//			'edit.php?post_type=stm-zoom-webinar',
-//			false
-//		);
+		// add_submenu_page(
+		// 	'stm_zoom',
+		// 	esc_html__( 'Recruits', 'eroom-zoom-meetings-webinar' ),
+		// 	esc_html__( 'Recruits', 'eroom-zoom-meetings-webinar' ),
+		// 	'manage_options',
+		// 	'edit.php?post_type=recruit',
+		// 	false
+		// );
 
         add_submenu_page(
             'stm_zoom',
