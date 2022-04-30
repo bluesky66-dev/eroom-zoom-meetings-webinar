@@ -7,7 +7,7 @@
  * Author: StylemixThemes
  * Author URI: https://stylemixthemes.com/
  * Text Domain: eroom-zoom-meetings-webinar
- * Version: 1.3.9
+ * Version: 10000
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
