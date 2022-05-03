@@ -553,6 +553,20 @@ class StmZoom {
 	}
 
 	/**
+	 * Get recruit statuses
+	 * @return array
+	 */
+	public static function get_recruit_statuses() {
+		$statuses = array(
+            'recruiting' => '募集中',
+            'recruiting_closed' => '募集終了',
+            'in_progress' => '進行中',
+            'posting_closed' => '掲載終了',
+        );
+		return $statuses;
+	}
+
+	/**
 	 * Get Users for Autocomplete
 	 * @return array
 	 */

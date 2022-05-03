@@ -530,6 +530,11 @@ class StmZoomPostTypes {
 								'type'    => 'text',
 								'label'   => esc_html__( 'テキスト', 'eroom-zoom-meetings-webinar' ),
 							),
+							'status'                 => array(
+								'type'    => 'select',
+								'label'   => esc_html__( 'ステータス', 'eroom-zoom-meetings-webinar' ),
+								'options' => StmZoom::get_recruit_statuses(),
+							),
 						),
 					),
 
