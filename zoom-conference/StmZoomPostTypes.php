@@ -416,6 +416,22 @@ class StmZoomPostTypes {
 								'label'     => esc_html__( 'Alternative hosts', 'eroom-zoom-meetings-webinar' ),
 								'post_type' => array(),
 							),
+                            'price'                 => array(
+	                            'type'  => 'number',
+	                            'label' => esc_html__( '料金', 'eroom-zoom-meetings-webinar' ),
+                            ),
+                            'participant'                 => array(
+	                            'type'  => 'number',
+	                            'label' => esc_html__( '参加者', 'eroom-zoom-meetings-webinar' ),
+                            ),
+                            'number-limit'                 => array(
+	                            'type'  => 'number',
+	                            'label' => esc_html__( '人数制限', 'eroom-zoom-meetings-webinar' ),
+                            ),
+                            'lecture_text'                 => array(
+	                            'type'  => 'text',
+	                            'label' => esc_html__( 'テキスト', 'eroom-zoom-meetings-webinar' ),
+                            ),
 						),
 					),
 
