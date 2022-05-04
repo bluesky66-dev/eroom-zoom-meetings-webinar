@@ -195,7 +195,7 @@ class StmZoomPostTypes {
             'rewrite'           => array( 'slug' => 'stm_category' ),
         );
 
-        register_taxonomy( 'stm_category', 'stm-zoom', $args );
+        register_taxonomy( 'stm_category', array('stm-zoom', 'recruit'), $args );
         register_taxonomy_for_object_type('stm_category', 'stm-zoom');
         unset( $args );
         unset( $labels );
@@ -232,7 +232,7 @@ class StmZoomPostTypes {
             'rewrite'               => array( 'slug' => 'stm_popular' ),
         );
 
-        register_taxonomy( 'stm_popular', 'stm-zoom', $args );
+        register_taxonomy( 'stm_popular', array('stm-zoom', 'recruit'), $args );
         register_taxonomy_for_object_type('stm_popular', 'stm-zoom');
         unset( $args );
         unset( $labels );
@@ -270,7 +270,7 @@ class StmZoomPostTypes {
             'rewrite'               => array( 'slug' => 'stm_tag' ),
         );
 
-        register_taxonomy( 'stm_tag', 'stm-zoom', $args );
+        register_taxonomy( 'stm_tag', array('stm-zoom', 'recruit'), $args );
         register_taxonomy_for_object_type('stm_tag', 'stm-zoom');
     }
 
@@ -514,6 +514,10 @@ class StmZoomPostTypes {
 					'tab_1' => array(
 						'name'   => esc_html__( 'Webinar settings', 'eroom-zoom-meetings-webinar' ),
 						'fields' => array(
+							'stm_featured'          => array(
+								'type'  => 'checkbox',
+								'label' => esc_html__( 'Featured', 'eroom-zoom-meetings-webinar' ),
+							),
 							'price'                     => array(
 								'type'    => 'text',
 								'label'   => esc_html__( '料金', 'eroom-zoom-meetings-webinar' ),
