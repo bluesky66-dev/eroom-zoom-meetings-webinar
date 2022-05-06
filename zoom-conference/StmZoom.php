@@ -46,7 +46,7 @@ class StmZoom {
 	 * Enqueue Frontend Styles & Scripts
 	 */
 	public function frontend_enqueue() {
-		wp_enqueue_script( 'stm_jquery.countdown', STM_ZOOM_URL . 'assets/js/frontend/jquery.countdown.js', array( 'jquery' ), STM_ZOOM_VERSION, true );
+//		wp_enqueue_script( 'stm_jquery.countdown', STM_ZOOM_URL . 'assets/js/frontend/jquery.countdown.js', array( 'jquery' ), STM_ZOOM_VERSION, true );
 		wp_enqueue_script( 'stm_zoom_main', STM_ZOOM_URL . 'assets/js/frontend/main.js', array( 'jquery' ), STM_ZOOM_VERSION, true );
 		wp_enqueue_style( 'stm_zoom_main', STM_ZOOM_URL . 'assets/css/frontend/main.css', false, STM_ZOOM_VERSION );
 	}
