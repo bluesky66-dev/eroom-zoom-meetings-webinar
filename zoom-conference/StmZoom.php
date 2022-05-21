@@ -33,7 +33,7 @@ class StmZoom {
 
 		if ( isset( $post->post_type ) ) {
 			if ( 'stm-zoom' === $post->post_type ) {
-				$template = get_zoom_template( 'single/main.php' );
+//				$template = get_zoom_template( 'single/main.php' );
 			} elseif ( 'stm-zoom-webinar' === $post->post_type ) {
 				$template = get_zoom_template( 'single/main-webinar.php' );
 			}
